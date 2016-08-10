@@ -1,0 +1,31 @@
+{% load static %}
+{% load staticfiles %}
+{% load feeding_filters %}
+<html>
+    <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/update.css' %}">
+    </head>
+    <body>
+         <div><img src="{% static "topper-8.png" %}"></div>
+        <h1>Feeding Litter:{{ update_litter }}</h1>
+        <p>There are {{ kittens_to_update|length }} kittens to update</p>
+
+        <form method=POST action='submit_updates'>
+            <input type="hidden" name ="litter" value="{{ update_litter }}">
+            {% csrf_token %}
+
+            {% for name,form in name_to_form %}
+            {{ mgmt }}
+            <table>
+                <tr><td><b>Name:</b> {{ name.name }}</td></tr>
+                {{ form }}
+           </table>
+           <br>
+            {% endfor %}
+
+            <br><button class="btn" type="submit" value="Feed the kittehs!">Feed the Kittehs!</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+{% load staticfiles %}
+{% load feeding_filters %}
+{% load tz %}
+<html>
+    <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/feeding.css' %}"
+    </head
+    <body bgcolor="#6D6E72">
+        <div>
+            <img src="{% static "topper-8.png" %}">
+        </div>
+        <div class="wrap">
+            {% for k,v in kittensInLitters.items %}
+
+            <table border="2">
+            <tr>
+                <td width="12%">Litter:{{ k.litter }}</td>
+                <td width="10%">Room:{{ k.room }}</td>
+                {% timezone "America/Chicago" %}
+                <td width="20%">{{ k.next_feed}}</td>
+                {% endtimezone %}
+                <form action='update' method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="litter" value="{{ k.litter }}">
+                    <button class="btn" type="submit" value="Feed {{ k.litter }}!">Feed {{ k.litter }}!</button>
+                </form>
+            </tr>
+            {% for kitten in v %}
+            <tr>
+                <td></td>
+                <td>{{ kitten.name }}</td>
+                <td>{{ kitten.pre_feed }}g</td>
+            </tr>
+            {% endfor %}
+            </table>
+            <br style="clear: left;">
+            <br>
+            {% endfor %}
+
+
+        </div>
+    </body>
+</html>
+
+

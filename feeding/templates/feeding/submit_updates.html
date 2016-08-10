@@ -1,0 +1,18 @@
+{% load static %}
+{% load staticfiles %}
+{% load feeding_filters %}
+{% load tz %}
+<html>
+    <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/feeding.css' %}">
+    </head
+    <body>
+        <h1>Thank you for feeding {{ litter.litter }}</h1>
+        {% timezone "America/Chicago" %}
+        <h2>The next scheduled feeding is at {{ next_feed }}</h2>
+        {% endtimezone %}
+    </body
+    </head>
+</html>
